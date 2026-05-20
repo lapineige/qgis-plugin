@@ -61,26 +61,26 @@ class SimpleAccessPlugin:
         # Create a dockable panel with a tree of resources
         self.dock = DockWidget()
         self.dock.set_tree_content(self.ressources_tree)
-        self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock)
+        self.iface.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, self.dock)
 
     def createPluginMenu(self):
         """
         Creates the plugin main menu
         """
         plugin_menu = self.iface.pluginMenu()
-        ##self.plugin_menu = QMenu(u"GÃ©o2France", plugin_menu)
-        self.plugin_menu = QMenu(u"GÃ©oBretagne", plugin_menu)
+        ##self.plugin_menu = QMenu(u"Géo2France", plugin_menu)
+        self.plugin_menu = QMenu(u"GéoBretagne", plugin_menu)
         plugin_menu.addMenu(self.plugin_menu)
 
-        show_panel_action = QAction(u'Afficher le panneau latÃ©ral', self.iface.mainWindow())
+        show_panel_action = QAction(u'Afficher le panneau latéral', self.iface.mainWindow())
         show_panel_action.triggered.connect(self.showPanelMenuTriggered)
         self.plugin_menu.addAction(show_panel_action)
 
-        param_action = QAction(u'ParamÃ©trer le pluginâ€¦', self.iface.mainWindow())
+        param_action = QAction(u'Paramétrer le plugin…', self.iface.mainWindow())
         param_action.triggered.connect(self.paramMenuTriggered)
         self.plugin_menu.addAction(param_action)
 
-        about_action = QAction(u'Ã€ proposâ€¦', self.iface.mainWindow())
+        about_action = QAction(u'À propos…', self.iface.mainWindow())
         about_action.triggered.connect(self.aboutMenuTriggered)
         self.plugin_menu.addAction(about_action)
 
@@ -96,14 +96,14 @@ class SimpleAccessPlugin:
         Shows the About box
         """
         dialog = AboutBox(self.iface.mainWindow())
-        dialog.exec_()
+        dialog.exec()
 
     def paramMenuTriggered(self):
         """
         Shows the Param box
         """
         dialog = ParamBox(self.iface.mainWindow(), self.dock)
-        dialog.exec_()
+        dialog.exec()
 
     def unload(self):
         """
