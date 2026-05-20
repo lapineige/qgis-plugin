@@ -19,7 +19,7 @@ class TreeWidget(QTreeWidget):
         super(TreeWidget, self).__init__()
 
         # Selection
-        self.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
 
         # Columns and headers
         self.setColumnCount(1)
@@ -30,7 +30,7 @@ class TreeWidget(QTreeWidget):
         self.itemDoubleClicked.connect(self.tree_item_double_clicked)
 
         # Context menu
-        self.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.customContextMenuRequested.connect(self.open_menu)
 
         # Enable drag of tree items
@@ -53,7 +53,7 @@ class TreeWidget(QTreeWidget):
         self.clear()
 
         if resources_tree is None:
-            QgsMessageLog.logMessage(u"Faute de fichier de configuration valide, aucune ressource ne peut Ãªtre chargÃ©e "
+            QgsMessageLog.logMessage(u"Faute de fichier de configuration valide, aucune ressource ne peut être chargée "
                                      u"dans le panneau.", level=Qgis.Warning)
         elif resources_tree.children is not None and len(resources_tree.children) > 0:
             for child in resources_tree.children:
@@ -153,7 +153,7 @@ class TreeWidget(QTreeWidget):
         """
         selected_item = self.currentItem()
         menu = selected_item.create_menu()
-        menu.exec_(self.viewport().mapToGlobal(position))
+        menu.exec(self.viewport().mapToGlobal(position))
 
     # Constant and methods used for drag and drop of tree items onto the map
 
@@ -169,7 +169,7 @@ class TreeWidget(QTreeWidget):
         """
         mime_data = QTreeWidget.mimeData(self, items)
         encoded_data = QByteArray()
-        stream = QDataStream(encoded_data, QIODevice.WriteOnly)
+        stream = QDataStream(encoded_data, QIODevice.OpenModeFlag.WriteOnly)
 
         for item in items:
             layer_mime_data = item.item_data.layer_mime_data()
@@ -181,7 +181,7 @@ class TreeWidget(QTreeWidget):
     def dropMimeData(self, parent, index, data, action):
         """
         """
-        if action == Qt.IgnoreAction:
+        if action == Qt.DropAction.IgnoreAction:
             return True
 
         return False

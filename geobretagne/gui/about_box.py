@@ -23,11 +23,11 @@ class AboutBox(QDialog):
         mainLayout.addWidget(self.logo)
 
 
-        title = u"Ã€ propos de l'extension GÃ©oBretagneâ€¦"
-        description = u"""Extension pour QGIS donnant un accÃ¨s simplifiÃ© aux ressources gÃ©ographiques utiles aux 
-partenaires de GÃ©oBretagne
+        title = u"À propos de l'extension GéoBretagne…"
+        description = u"""Extension pour QGIS donnant un accès simplifié aux ressources géographiques utiles aux 
+partenaires de GéoBretagne
 Version {0}
-Plus d'informations Ã  l'adresse suivante :
+Plus d'informations à l'adresse suivante :
 {1}
         """.format(PluginGlobals.instance().PLUGIN_VERSION,
             PluginGlobals.instance().PLUGIN_SOURCE_REPOSITORY)
@@ -35,7 +35,7 @@ Plus d'informations Ã  l'adresse suivante :
         self.textArea = QTextEdit()
         self.textArea.setReadOnly(True)
         self.textArea.setText(description)
-        self.textArea.setFrameShape(QFrame.NoFrame)
+        self.textArea.setFrameShape(QFrame.Shape.NoFrame)
         mainLayout.addWidget(self.textArea)
 
         self.setModal(True)

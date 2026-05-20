@@ -31,7 +31,7 @@ class ParamBox(QDialog):
         """
         dlg_layout = QVBoxLayout()
         params_layout = QVBoxLayout()
-        params_layout.setAlignment(Qt.AlignTop)
+        params_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
 
         # Config files groupbox
         self.config_files_groupbox = QgsCollapsibleGroupBox(u"Fichier de configuration de l'arbre des ressources")
@@ -44,18 +44,18 @@ class ParamBox(QDialog):
         config_file_groupbox_layout.addRow(self.config_file_url_label, self.config_file_url_edit)
 
         # Download the file at startup
-        self.download_cb = QCheckBox(u"TÃ©lÃ©charger le fichier Ã  chaque lancement de QGIS", self)
+        self.download_cb = QCheckBox(u"Télécharger le fichier à chaque lancement de QGIS", self)
         self.download_cb.stateChanged.connect(self.download_cb_changed)
         config_file_groupbox_layout.addRow(self.download_cb)
 
         params_layout.addWidget(self.config_files_groupbox)
 
         # Download the file now
-        self.download_now_label = QLabel(u"TÃ©lÃ©charger le fichier maintenant", self)
+        self.download_now_label = QLabel(u"Télécharger le fichier maintenant", self)
         self.download_now_btnbox = QDialogButtonBox()
-        self.download_now_btnbox.setOrientation(Qt.Horizontal)
-        self.download_now_btnbox.setStandardButtons(QDialogButtonBox.Yes)
-        self.download_now_btnbox.button(QDialogButtonBox.Yes).clicked.connect(self.download_file_now)
+        self.download_now_btnbox.setOrientation(Qt.Orientation.Horizontal)
+        self.download_now_btnbox.setStandardButtons(QDialogButtonBox.StandardButton.Yes)
+        self.download_now_btnbox.button(QDialogButtonBox.StandardButton.Yes).clicked.connect(self.download_file_now)
         config_file_groupbox_layout.addRow(self.download_now_label, self.download_now_btnbox)
 
         # Content of the resource tree groupbox
@@ -63,7 +63,7 @@ class ParamBox(QDialog):
         resource_tree_groupbox_layout = QFormLayout(self.resource_tree_groupbox)
 
         # Hide resources with a warn flag
-        self.hide_resources_with_warn_status_cb = QCheckBox(u"Masquer les ressources en cours d'intÃ©gration", self)
+        self.hide_resources_with_warn_status_cb = QCheckBox(u"Masquer les ressources en cours d'intégration", self)
         self.hide_resources_with_warn_status_cb.stateChanged.connect(self.hide_resources_with_warn_cb_changed)
         resource_tree_groupbox_layout.addRow(self.hide_resources_with_warn_status_cb)
 
@@ -80,15 +80,15 @@ class ParamBox(QDialog):
 
         # Bottom dialog buttons
         self.button_box = QDialogButtonBox()
-        self.button_box.setOrientation(Qt.Horizontal)
+        self.button_box.setOrientation(Qt.Orientation.Horizontal)
         self.button_box.setStandardButtons(
-            QDialogButtonBox.RestoreDefaults|QDialogButtonBox.Apply|QDialogButtonBox.Close)
-        self.button_box.button(QDialogButtonBox.RestoreDefaults).clicked.connect(self.restore_defaults_button_clicked)
-        self.button_box.button(QDialogButtonBox.Close).clicked.connect(self.close_button_clicked)
-        self.button_box.button(QDialogButtonBox.Apply).clicked.connect(self.apply_button_clicked)
+            QDialogButtonBox.StandardButton.RestoreDefaults|QDialogButtonBox.StandardButton.Apply|QDialogButtonBox.StandardButton.Close)
+        self.button_box.button(QDialogButtonBox.StandardButton.RestoreDefaults).clicked.connect(self.restore_defaults_button_clicked)
+        self.button_box.button(QDialogButtonBox.StandardButton.Close).clicked.connect(self.close_button_clicked)
+        self.button_box.button(QDialogButtonBox.StandardButton.Apply).clicked.connect(self.apply_button_clicked)
 
         # Dialog box title, layout, size and display
-        title = u"ParamÃ©trage de l'extension GÃ©oBretagneâ€¦"
+        title = u"Paramétrage de l'extension GéoBretagne…"
         self.setWindowTitle(title)
         dlg_layout.addWidget(self.button_box)
         self.setLayout(dlg_layout)
@@ -147,7 +147,7 @@ class ParamBox(QDialog):
                          hide_empty_groups_changed
 
         # Update state of the Apply Button
-        self.button_box.button(QDialogButtonBox.Apply).setEnabled(self.need_save)
+        self.button_box.button(QDialogButtonBox.StandardButton.Apply).setEnabled(self.need_save)
 
     def download_cb_changed(self, state):
         """
@@ -260,13 +260,13 @@ class ParamBox(QDialog):
             reply = QMessageBox.question(
                 self,
                 u"Sauvegarder ?",
-                u"Voulez-vous appliquer les changements avant de fermer la fenÃªtre de paramÃ©trage de l'extension ?",
-                QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel, QMessageBox.Yes)
+                u"Voulez-vous appliquer les changements avant de fermer la fenêtre de paramétrage de l'extension ?",
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No | QMessageBox.StandardButton.Cancel, QMessageBox.StandardButton.Yes)
 
-            if reply == QMessageBox.No:
+            if reply == QMessageBox.StandardButton.No:
                 evnt.accept()
                 super(ParamBox, self).closeEvent(evnt)
-            elif reply == QMessageBox.Yes:
+            elif reply == QMessageBox.StandardButton.Yes:
                 self.save_settings()
                 evnt.accept()
                 super(ParamBox, self).closeEvent(evnt)

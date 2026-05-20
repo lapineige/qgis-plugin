@@ -47,7 +47,7 @@ def contains_unexpanded_subitems(item):
 
 class TreeWidgetItem(QTreeWidgetItem):
     """
-    An item of the GÃ©o2France tree view
+    An item of the Géo2France tree view
     """
   
     def __init__(self, parent, item_data=None):
@@ -70,9 +70,9 @@ class TreeWidgetItem(QTreeWidgetItem):
         # QT flags
         # Enable selection and drag of the item
         if self.item_data.can_be_added_to_map:
-            self.setFlags(Qt.ItemIsDragEnabled | Qt.ItemIsEnabled | Qt.ItemIsSelectable)
+            self.setFlags(Qt.ItemFlag.ItemIsDragEnabled | Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsSelectable)
         else:
-            self.setFlags(Qt.ItemIsEnabled | Qt.ItemIsSelectable)
+            self.setFlags(Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsSelectable)
 
     def run_default_action(self):
         """
@@ -126,11 +126,11 @@ class TreeWidgetItem(QTreeWidgetItem):
         menu = QMenu()
     
         if self.item_data.can_be_added_to_map:
-            add_to_map_action = menu.addAction(u"Ajouter Ã  la carte")
+            add_to_map_action = menu.addAction(u"Ajouter à la carte")
             add_to_map_action.triggered.connect(self.run_add_to_map_action)
     
         if self.item_data.metadata_url:
-            show_metadata_action = menu.addAction(u"Afficher les mÃ©tadonnÃ©es...")
+            show_metadata_action = menu.addAction(u"Afficher les métadonnées...")
             show_metadata_action.triggered.connect(self.run_show_metadata_action)
     
         if self.childCount() > 0 and self.contains_unexpanded_subitems():
